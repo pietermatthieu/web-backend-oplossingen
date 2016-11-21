@@ -21,7 +21,7 @@ if(isset( $_POST['submit']))
     $_SESSION['session1']['email'] = $_POST['email'];
     $_SESSION['session1']['nickname'] = $_POST['nickname'];
 }
-$afTeDrukken = $_SESSION['session1'];
+$afTeDrukken = $_SESSION['session1'];//eerst checken met isset
 
 
 var_dump($_SESSION);

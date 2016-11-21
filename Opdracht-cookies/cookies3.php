@@ -18,8 +18,9 @@ if( $ingevoerdUser == $naam && $ingevoerdPass == $pass )
 {
  $isCorrect = true;
  $feedback = "";
- setcookie('login',True,time()+360);    
-    header('Location: cookies.php');
+ setcookie('login',True,time()+360);  
+ setcookie('user', $ingevoerdUser, time()+360);
+ header('Location: cookies3.php');
 }
 else
 {
@@ -32,7 +33,7 @@ if( isset($_GET["cookie"]))
         setcookie('login','', 1);
 		setcookie('login',false);
 		unset($_COOKIE['login']);
-        header('Location: cookies.php');
+        header('Location: cookies3.php');
     }
 }
 
@@ -45,16 +46,14 @@ if( isset($_GET["cookie"]))
 	<body>     
         <?php if(isset($_COOKIE['login'])): ?>
         <h3>DASHBOARD</h3>
-        <p>U bent ingelogd.</p>
-        <a href="cookies.php?cookie=destroy">Uitloggen</a>
-        
-        <?php else: ?>
-        
+        <p>Hallo <?php echo $_COOKIE['user'] ?>, fijn dat je er weer bij bent!</p>
+        <a href="cookies.php?cookie=destroy">Uitloggen</a>      
+        <?php else: ?>       
         <h3>INLOGGEN</h3>   
         <?php if(isset($_POST["gebruikersnaam"]) && isset($_POST["paswoord"])): ?>
         <p><?php echo $feedback ?></p>  
         <?php endif ?>
-        <form action="cookies.php" method="POST">      
+        <form action="cookies3.php" method="POST">      
         <ul>
             <li>
                 <label for="gebruikersnaam">gebruikersnaam</label>

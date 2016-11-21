@@ -7,6 +7,7 @@ $feedback = "";
 $ingevoerdUser = "";
 $ingevoerdPass = "";
 $isCorrect = false;
+$testText = "";
 
 if( isset($_POST["gebruikersnaam"]) && isset($_POST["paswoord"]))
 {
@@ -18,8 +19,20 @@ if( $ingevoerdUser == $naam && $ingevoerdPass == $pass )
 {
  $isCorrect = true;
  $feedback = "";
- setcookie('login',True,time()+360);    
-    header('Location: cookies.php');
+    
+    if(isset($_POST["onthoud"]))
+    {    
+    setcookie('login',True,time()+2592000);    
+    $testText = "Checkbox is aangevinkt";
+        echo $testText;
+    }
+    else
+    {
+        setcookie('login',True);
+        $testText = "Checkbox is niet aangevinkt";
+    }
+    
+    header('Location: cookies2.php');
 }
 else
 {
@@ -32,7 +45,7 @@ if( isset($_GET["cookie"]))
         setcookie('login','', 1);
 		setcookie('login',false);
 		unset($_COOKIE['login']);
-        header('Location: cookies.php');
+        header('Location: cookies2.php');
     }
 }
 
@@ -54,7 +67,7 @@ if( isset($_GET["cookie"]))
         <?php if(isset($_POST["gebruikersnaam"]) && isset($_POST["paswoord"])): ?>
         <p><?php echo $feedback ?></p>  
         <?php endif ?>
-        <form action="cookies.php" method="POST">      
+        <form action="cookies2.php" method="POST">      
         <ul>
             <li>
                 <label for="gebruikersnaam">gebruikersnaam</label>
@@ -62,10 +75,17 @@ if( isset($_GET["cookie"]))
             </li>    
             <li><label for="paswoord">paswoord</label>
 				<input type="text" id="paswoord"  name="paswoord" >    
-            </li>          
-        </ul>       
+            </li> 
+            <li>
+				<label for="onthoud"> Mij onthouden: </label>
+				<input type="checkbox" name="onthoud" id="onthoud">
+            </li>
+				
+        </ul>    
+            
             <input name="submit" type="submit" value="Verzenden">     
         </form>  
         <?php endif ?>
+        <?php echo $testText ?>
 	</body>
 </html>
